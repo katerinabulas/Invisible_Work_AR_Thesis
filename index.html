@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <style>
       body { margin: 0; overflow: hidden; }
     </style>
@@ -23,10 +24,10 @@
 
       <a-entity mindar-image-target="targetIndex: 0">
         <a-gltf-model src="#laborModel" 
-                      position="0 0 0" 
-                      rotation="0 0 0" 
-                      scale="1 1 1"
-                      animation="property: rotation; to: 0 360 0; dur: 15000; easing: linear; loop: true">
+              position="0 0 0" 
+              rotation="0 0 0" 
+              scale="1 1 1" 
+              animation-mixer>
         </a-gltf-model>
       </a-entity>
 
