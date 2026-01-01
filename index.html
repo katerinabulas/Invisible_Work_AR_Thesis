@@ -9,10 +9,11 @@
     </style>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-assets>
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.001; filterBeta:0.01;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      
+     <a-assets>
         <a-asset-item id="laborModel" src="./model.glb"></a-asset-item>
-      </a-assets>
+     </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
@@ -20,10 +21,11 @@
         <a-gltf-model src="#laborModel" 
                       position="0 0 0" 
                       rotation="0 0 0" 
-                      scale="0.5 0.5 0.5"
+                      scale="1 1 1"
                       animation="property: rotation; to: 0 360 0; dur: 15000; easing: linear; loop: true">
         </a-gltf-model>
       </a-entity>
+
     </a-scene>
   </body>
 </html>
