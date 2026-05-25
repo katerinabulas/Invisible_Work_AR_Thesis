@@ -10,27 +10,57 @@
     </style>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.001; filterBeta:0.01;" 
-             color-space="sRGB" 
-             renderer="colorManagement: true, physicallyCorrectLights" 
-             vr-mode-ui="enabled: false" 
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.001; filterBeta:0.01;"
+             color-space="sRGB"
+             renderer="colorManagement: true;"
+             vr-mode-ui="enabled: false"
              device-orientation-permission-ui="enabled: false">
-      
+             
       <a-assets>
         <a-asset-item id="laborModel" src="model.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model src="#laborModel" 
-              position="0 1 0" 
-              rotation="0 0 0" 
-              scale="0.5 0.5 0.5" 
-              animation-mixer>
+      <a-entity id="target" mindar-image-target="targetIndex: 0">
+        <a-gltf-model src="#laborModel"
+                      position="0 1 0"
+                      rotation="0 0 0"
+                      scale="0.5 0.5 0.5"
+                      animation-mixer>
         </a-gltf-model>
       </a-entity>
 
     </a-scene>
+
+    <script>
+      const targetEntity = document.querySelector('#target');
+      const modelEntity = document.querySelector('[a-gltf-model]');
+
+      targetEntity.addEventListener("targetFound", event => {
+        console.log;
+        
+        setTimeout(() => {
+          const worldPosition = new THREE.Vector3();
+          const worldRotation = new THREE.Quaternion();
+          const worldScale = new THREE.Vector3();
+          
+          
+          modelEntity.object3D.getWorldPosition(worldPosition);
+          modelEntity.object3D.getWorldQuaternion(worldRotation);
+          modelEntity.object3D.getWorldScale(worldScale);
+          document.querySelector('a-scene').appendChild(modelEntity);
+          
+          
+          modelEntity.object3D.position.copy(worldPosition);
+          modelEntity.object3D.quaternion.copy(worldRotation);
+          modelEntity.object3D.scale.copy(worldScale);
+          
+          
+          targetEntity.removeAttribute('mindar-image-target');
+          console.log;
+        }, 500); 
+      });
+    </script>
   </body>
 </html>
