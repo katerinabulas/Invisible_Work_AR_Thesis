@@ -5,6 +5,8 @@
     <title>Invisible Labor — AR Installation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
     <style>
       body { 
         margin: 0; 
@@ -73,6 +75,7 @@
         text-decoration: none;
         margin-bottom: 12px;
         font-weight: 500;
+        line-height: 1.4;
       }
 
       .resource-link:hover {
@@ -85,11 +88,11 @@
         padding-bottom: 20px;
       }
 
-      /* Стильная розовая кнопка запуска Apple AR */
+      /* Твоя сочная розовая кнопка */
       .ar-button {
         display: inline-block;
         padding: 16px 50px;
-        background-color: #ff7597; /* Твой сочный розовый */
+        background-color: #ff7597; 
         color: white;
         border: none;
         border-radius: 30px;
@@ -101,9 +104,9 @@
         transition: transform 0.2s, box-shadow 0.2s;
       }
 
-      .ar-button:active {
-        transform: scale(0.97);
-        box-shadow: 0 2px 6px rgba(255, 117, 151, 0.4);
+      /* Сам плеер скрыт, он работает кнопкой в фоне */
+      model-viewer {
+        display: none;
       }
     </style>
   </head>
@@ -116,19 +119,35 @@
           This AR installation visualizes the unrecognized, uncompensated, and emotionally draining work that often goes unseen in everyday life. By bringing these hidden structures into physical space, the artwork prompts a reflection on social inequality, mental load, and the internal labor of maintenance.
         </p>
 
-     <a class="resource-link" href="https://www.unwomen.org/en/articles/faqs/faqs-what-is-unpaid-care-work-and-how-does-it-power-the-economy" target="_blank">
-  → UN Women: What is unpaid care work and how does it power the economy?
-</a>
-          
+        <div class="links-section">
+          <h2>Data & Resources</h2>
+          <a class="resource-link" href="https://www.unwomen.org/en/articles/faqs/faqs-what-is-unpaid-care-work-and-how-does-it-power-the-economy" target="_blank">
+            → UN Women: What is unpaid care work and how does it power the economy?
+          </a>
         </div>
       </div>
 
       <div class="button-section">
-        <a id="ios-ar" class="ar-button" rel="ar" href="https://github.com/katerinabulas/Invisible_Work_AR_Thesis/releases/download/v1.0.0/model.usdz">
-            Let's go?
-        </a>
+        <button class="ar-button" id="start-btn">Let's go?</button>
       </div>
     </div>
 
+    <model-viewer 
+      id="viewer"
+      src="jwfbgp.glb" 
+      ar 
+      ar-modes="quick-look scene-viewer" 
+      camera-controls>
+    </model-viewer>
+
+    <script>
+      const startBtn = document.getElementById('start-btn');
+      const viewer = document.getElementById('viewer');
+
+      startBtn.addEventListener('click', () => {
+        // Запуск AR напрямую из цветного .glb
+        viewer.activateAR();
+      });
+    </script>
   </body>
 </html>
