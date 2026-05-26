@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invisible Labor AR</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff0f5;
+            font-family: sans-serif;
+        }
+        .ar-button {
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Invisible Labor</h1>
+
+    <a id="ios-ar" class="ar-button" rel="ar" href="https://docs.google.com/uc?export=download&id=1O8XFmQy6K6B6v9-V0g2qN3mXb6V_YhZ_">
+        Let's go?
+    </a>
+
+</body>
+</html>
