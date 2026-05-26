@@ -5,9 +5,6 @@
     <title>Invisible Labor — AR Installation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-
     <style>
       body { 
         margin: 0; 
@@ -29,7 +26,7 @@
         box-sizing: border-box;
         padding: 40px 24px;
         z-index: 999;
-        background: rgba(252, 248, 248, 0.96);
+        background: #fcf8f8;
         overflow-y: auto;
       }
 
@@ -72,7 +69,7 @@
       .resource-link {
         display: block;
         font-size: 14px;
-        color: #e05375; /* Насыщенный, читаемый розовый для текста */
+        color: #e05375; /* Насыщенный розовый для ссылок */
         text-decoration: none;
         margin-bottom: 12px;
         font-weight: 500;
@@ -88,10 +85,11 @@
         padding-bottom: 20px;
       }
 
+      /* Стильная розовая кнопка запуска Apple AR */
       .ar-button {
         display: inline-block;
         padding: 16px 50px;
-        background-color: #ff7597; /* Твой новый сочный розовый (не фуксия) */
+        background-color: #ff7597; /* Твой сочный розовый */
         color: white;
         border: none;
         border-radius: 30px;
@@ -100,12 +98,11 @@
         text-decoration: none;
         box-shadow: 0 4px 14px rgba(255, 117, 151, 0.4);
         cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s;
       }
 
       .ar-button:active {
         transform: scale(0.97);
-        background-color: #e05375;
         box-shadow: 0 2px 6px rgba(255, 117, 151, 0.4);
       }
     </style>
@@ -134,33 +131,11 @@
       </div>
 
       <div class="button-section">
-        <button class="ar-button" id="start-btn">Let's go?</button>
+        <a id="ios-ar" class="ar-button" rel="ar" href="https://github.com/katerinabulas/Invisible_Work_AR_Thesis/releases/download/v1.0.0/model.usdz">
+            Let's go?
+        </a>
       </div>
     </div>
 
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
-      
-      <a-assets>
-        <a-asset-item id="my-model" src="model.glb"></a-asset-item>
-      </a-assets>
-
-      <a-entity gltf-model="#my-model" rotation="0 0 0" position="0 -1 -3" scale="1 1 1"></a-entity>
-
-      <a-entity camera></a-entity>
-    </a-scene>
-
-    <script>
-      const startBtn = document.getElementById('start-btn');
-      const uiContainer = document.getElementById('ui-container');
-      const sceneEl = document.querySelector('a-scene');
-
-      // Сцена скрыта до клика
-      sceneEl.style.display = 'none';
-
-      startBtn.addEventListener('click', () => {
-        uiContainer.style.display = 'none';
-        sceneEl.style.display = 'block';
-      });
-    </script>
   </body>
 </html>
