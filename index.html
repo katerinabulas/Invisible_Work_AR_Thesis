@@ -2,63 +2,164 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Invisible Labor AR</title>
+    <title>Invisible Labor — AR Installation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
     <style>
-      body { margin: 0; overflow: hidden; }
-      #button-container {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
+      body { 
+        margin: 0; 
+        overflow: hidden; 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #fcf8f8;
+        color: #333;
       }
+      
+      #ui-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 40px 24px;
+        z-index: 999;
+        background: rgba(252, 248, 248, 0.96);
+        overflow-y: auto;
+      }
+
+      .header-section {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+        color: #111;
+      }
+
+      .description {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 24px;
+      }
+
+      .links-section {
+        border-top: 1px solid #e5e5e5;
+        padding-top: 20px;
+        margin-top: 20px;
+        text-align: left;
+      }
+
+      .links-section h2 {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #888;
+        margin-bottom: 12px;
+      }
+
+      .resource-link {
+        display: block;
+        font-size: 14px;
+        color: #e05375; /* Насыщенный, читаемый розовый для текста */
+        text-decoration: none;
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+
+      .resource-link:hover {
+        text-decoration: underline;
+      }
+
+      .button-section {
+        text-align: center;
+        margin-top: 40px;
+        padding-bottom: 20px;
+      }
+
       .ar-button {
-        padding: 15px 30px;
-        background-color: #ffb6c1; /* Твой красивый розовый цвет */
+        display: inline-block;
+        padding: 16px 50px;
+        background-color: #ff7597; /* Твой новый сочный розовый (не фуксия) */
         color: white;
         border: none;
-        border-radius: 25px;
-        font-family: sans-serif;
+        border-radius: 30px;
         font-size: 18px;
         font-weight: bold;
         text-decoration: none;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 14px rgba(255, 117, 151, 0.4);
         cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      }
+
+      .ar-button:active {
+        transform: scale(0.97);
+        background-color: #e05375;
+        box-shadow: 0 2px 6px rgba(255, 117, 151, 0.4);
       }
     </style>
   </head>
   <body>
 
-    <div id="button-container">
-      <button class="ar-button" id="start-btn">Let's go?</button>
+    <div id="ui-container">
+      <div class="header-section">
+        <h1>Invisible Labor</h1>
+        <p class="description">
+          This AR installation visualizes the unrecognized, uncompensated, and emotionally draining work that often goes unseen in everyday life. By bringing these hidden structures into physical space, the artwork prompts a reflection on social inequality, mental load, and the internal labor of maintenance.
+        </p>
+
+        <div class="links-section">
+          <h2>Data & Resources</h2>
+          <a class="resource-link" href="https://www.unwomen.org/en/news-and-stories/in-focus/2023/10/unpaid-care-work" target="_blank">
+            → UN Women: Recognizing and redistributing unpaid work
+          </a>
+          <a class="resource-link" href="https://stats.oecd.org/index.aspx?queryid=54757" target="_blank">
+            → OECD Data: Time spent in unpaid work by gender
+          </a>
+          <a class="resource-link" href="https://www.oxfam.org/en/not-all-all-around-world-women-bear-brunt-unpaid-care-work" target="_blank">
+            → Oxfam International: The brunt of unpaid care work
+          </a>
+        </div>
+      </div>
+
+      <div class="button-section">
+        <button class="ar-button" id="start-btn">Let's go?</button>
+      </div>
     </div>
 
-    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
       
       <a-assets>
         <a-asset-item id="my-model" src="model.glb"></a-asset-item>
       </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity gltf-model="#my-model" rotation="0 0 0" position="0 -1 -3" scale="1 1 1"></a-entity>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-gltf-model src="#my-model" rotation="0 0 0" position="0 0 0" scale="1 1 1"></a-gltf-model>
-      </a-entity>
+      <a-entity camera></a-entity>
     </a-scene>
 
     <script>
       const startBtn = document.getElementById('start-btn');
+      const uiContainer = document.getElementById('ui-container');
       const sceneEl = document.querySelector('a-scene');
 
+      // Сцена скрыта до клика
+      sceneEl.style.display = 'none';
+
       startBtn.addEventListener('click', () => {
-        // Включаем камеру и AR при нажатии кнопки
-        sceneEl.systems['mindar-image-system'].start();
-        document.getElementById('button-container').style.display = 'none';
+        uiContainer.style.display = 'none';
+        sceneEl.style.display = 'block';
       });
     </script>
   </body>
