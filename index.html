@@ -1,28 +1,65 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Invisible Labor AR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image-aframe.prod.js"></script>
 
-  <title>Empty Project</title>
-  <meta itemprop="name" content="Empty Project">
-  <meta name="twitter:title" content="Empty Project">
-  <meta property="og:title" content="Empty Project">
-  <meta property="og:site_name" content="Empty Project">
-  <meta name="description" content="Start with a blank project.">
-  <meta itemprop="description" content="Start with a blank project.">
-  <meta property="og:description" content="Start with a blank project.">
-  <meta name="twitter:description" content="Start with a blank project.">
-  <script crossorigin="anonymous" src="./external/runtime/runtime.js"></script>
-  <script crossorigin="anonymous" src="./external/xr/xr.js" async="true" data-preload-chunks="face, slam">
-  </script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      #button-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+      }
+      .ar-button {
+        padding: 15px 30px;
+        background-color: #ffb6c1; /* Твой красивый розовый цвет */
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-family: sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
 
-</head>
+    <div id="button-container">
+      <button class="ar-button" id="start-btn">Let's go?</button>
+    </div>
 
-<body>
-<script src="bundle.js"></script>
+    <a-scene mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/examples/image-tracking/assets/card-example/card.mind; autoStart: false;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      
+      <a-assets>
+        <a-asset-item id="my-model" src="model.glb"></a-asset-item>
+      </a-assets>
 
-</body>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model src="#my-model" rotation="0 0 0" position="0 0 0" scale="1 1 1"></a-gltf-model>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      const startBtn = document.getElementById('start-btn');
+      const sceneEl = document.querySelector('a-scene');
+
+      startBtn.addEventListener('click', () => {
+        // Включаем камеру и AR при нажатии кнопки
+        sceneEl.systems['mindar-image-system'].start();
+        document.getElementById('button-container').style.display = 'none';
+      });
+    </script>
+  </body>
 </html>
